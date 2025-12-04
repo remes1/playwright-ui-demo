@@ -4,6 +4,7 @@ import { ProductsPage } from '../pages/products';
 import { HeaderPage } from '../pages/header';
 import { CartPage } from '../pages/cart';
 import { CheckoutPage } from '../pages/checkout';
+import paymentInformation from '../data/payment-info.json'
 
 export class E2E {
 
@@ -43,8 +44,14 @@ export class E2E {
 
         await test.step('Fill in Shipping Information', async () => {
             await expect(this.page).toHaveURL(this.checkoutPage.url);
-            await this.checkoutPage.fillShippingInfo("John Doe", "test@gmail.com", "Teststraße 88");
-            await this.checkoutPage.fillPaymentForm("1232 3214 1243 5435", "John Doe", "11/29", "001");
+            await this.checkoutPage.fillShippingInfo(
+                paymentInformation.shippingInformation.name,
+                paymentInformation.shippingInformation.email,
+                paymentInformation.shippingInformation.address);
+            await this.checkoutPage.fillPaymentForm(paymentInformation.paymentInformation.cardNumber,
+                paymentInformation.paymentInformation.cardName,
+                paymentInformation.paymentInformation.expiryDate,
+                paymentInformation.paymentInformation.cvv);
         })
 
     }

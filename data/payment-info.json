@@ -1,0 +1,13 @@
+{
+    "shippingInformation": {
+        "name": "Michael Kors",
+        "email": "m.kors@gmail.com",
+        "address": "Musterstrasse 1, 12345 Musterstadt"
+    },
+    "paymentInformation": {
+        "cardNumber": "4000056655665556",
+        "cardName": "Michael Kors",
+        "expiryDate": "12/29",
+        "cvv": "011"
+    }
+}
