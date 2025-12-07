@@ -31,6 +31,19 @@ npx playwright install
 
 ### ▶ Running Tests
 
+Create file:
+
+```.env```
+
+Сontent:
+
+```
+SUCCESS_USERNAME=test_user
+SUCCESS_PASSWORD=test_pass
+FAILED_USERNAME=test_failure
+FAILED_PASSWORD=test_pass
+```
+
 To launch tests in headed mode in chromium:
 
 ```bash
