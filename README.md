@@ -29,7 +29,7 @@ npm install
 npx playwright install
 ```
 
-### ▶ Running Tests
+### ▶ Running Tests locally
 
 Create file:
 
