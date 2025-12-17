@@ -5,9 +5,7 @@
   "main": "index.js",
     "scripts": {
     "test:chromium:headed": "playwright test --project=chromium --headed",
-    "test:chromium:headless": "playwright test --project=chromium",
-    "test:firefox:headed": "playwright test --project=firefox --headed",
-    "test:firefox:headless": "playwright test --project=firefox"
+    "test:chromium:headless": "playwright test --project=chromium"
   },
   "keywords": [],
   "author": "",
