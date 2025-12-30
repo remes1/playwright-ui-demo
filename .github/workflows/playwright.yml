@@ -1,4 +1,5 @@
-name: Playwright Tests
+name: Playwright UI Tests (Chromium)
+
 on:
   push:
     branches: [ main, master ]
@@ -7,27 +8,44 @@ on:
 
 jobs:
   test:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+
     env:
       SUCCESS_USERNAME: ${{ secrets.SUCCESS_USERNAME }}
       SUCCESS_PASSWORD: ${{ secrets.SUCCESS_PASSWORD }}
       FAILED_USERNAME: ${{ secrets.FAILED_USERNAME }}
       FAILED_PASSWORD: ${{ secrets.FAILED_PASSWORD }}
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npm run test:chromium:headless
-    - uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      # ----------------- CHECKOUT -----------------
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ----------------- NODE -----------------
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      # ----------------- INSTALL -----------------
+      - name: Install dependencies
+        run: npm ci
+
+      # ----------------- PLAYWRIGHT -----------------
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      # ----------------- RUN TESTS -----------------
+      - name: Run Playwright tests (Chromium)
+        run: npm test
+
+      # ----------------- REPORT -----------------
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
