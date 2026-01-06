@@ -1,10 +1,11 @@
 name: Playwright UI Tests (Chromium)
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   test:
