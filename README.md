@@ -16,7 +16,10 @@ A set of UI test examples implemented using Playwright + TypeScript. This projec
 
 - A quick starting point for UI automation with Playwright + TypeScript.  
 - Scalable structure for adding new tests, pages, utilities, and data.  
-- Demonstrates best practices for maintainable tests: Page Objects, fixtures, separation of code and data.  
+- Demonstrates best practices for maintainable tests: Page Objects, fixtures, separation of code and data.
+- Demonstrates cross-browser UI testing with Playwright.
+- CI runs tests in matrix jobs and uploads HTML reports as artifacts.
+
 
 ## 🚀 Getting Started
 
@@ -44,15 +47,16 @@ FAILED_USERNAME=test_failure
 FAILED_PASSWORD=test_pass
 ```
 
-To launch tests in headed mode in chromium:
+To launch tests in headless mode in specific browser:
 
 ```bash
-npm run test:chromium:headed
+npm run test:chromium
+npm run test:firefox
+npm run test:webkit
 ```
 
-To launch tests in headless mode in chromium:
+### 📝 Reports
 
-```bash
-npm run test:chromium:headless
-```
-
+- HTML reports are generated after each run: `playwright-report/`
+- Screenshots, videos, and traces are saved on failure
+- In CI, each browser job uploads its own HTML report as artifact
