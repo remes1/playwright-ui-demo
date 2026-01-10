@@ -6,9 +6,10 @@ dotenv.config({ path: '.env' });
 export default defineConfig({
   testDir: './tests',
   timeout: 30_000,
-  //fullyParallel: true,
+  fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 2 : undefined,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: 'https://v0-imagine-deals.vercel.app/',
@@ -21,6 +22,14 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
     },
   ],
 });

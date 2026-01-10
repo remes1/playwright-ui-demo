@@ -1,4 +1,4 @@
-name: Playwright UI Tests (Chromium)
+name: Playwright UI Tests
 
 on:
   workflow_dispatch:
@@ -11,6 +11,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+
+    name: Playwright UI Tests (${{ matrix.browser }})
 
     env:
       SUCCESS_USERNAME: ${{ secrets.SUCCESS_USERNAME }}
@@ -36,17 +43,17 @@ jobs:
 
       # ----------------- PLAYWRIGHT -----------------
       - name: Install Playwright browsers
-        run: npx playwright install chromium --with-deps
+        run: npx playwright install --with-deps
 
       # ----------------- RUN TESTS -----------------
-      - name: Run Playwright tests (Chromium)
-        run: npm test
+      - name: Run Playwright tests (${{ matrix.browser }})
+        run: npx playwright test --project=${{ matrix.browser }}
 
       # ----------------- REPORT -----------------
       - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.browser }}
           path: playwright-report/
           retention-days: 30
